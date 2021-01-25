@@ -1,0 +1,100 @@
+<link rel="import" href="../bower_components/polymer/polymer.html"/>
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html"/>
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html"/>
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html"/>
+
+<dom-module id="my-panel">
+    <style>
+        :host {
+            display: block;
+            width: 600px;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+            0 1px 5px 0 rgba(0, 0, 0, 0.12),
+            0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            @apply(--layout-horizontal);
+            height: 40px;
+            line-height: 40px;
+            border-radius: 6px 6px 0 0;
+            background: #369;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 0 10px;
+            margin: 0 -1px 0;
+        }
+
+        .header > .title {
+            @apply(--layout-flex);
+        }
+
+        .header > .actions {
+            @apply(--layout-inline);
+            padding-top: 8px;
+        }
+
+        .header > .actions > iron-icon {
+            cursor: pointer;
+        }
+
+        :host(.box){
+            width: auto;
+        }
+
+        :host(.primary) .header{
+            background: #337ab7;
+        }
+
+        :host(.success) .header{
+            background: #5cb85c;
+        }
+        
+        :host(.info) .header{
+            background: #5bc0de;
+        }
+
+        :host(.warning) .header {
+            background: #f0ad4e;
+        }
+
+        :host(.danger) .header {
+            background: #d9534f;
+        }
+
+        .content {
+            background: #fff;
+            padding: 10px 10px 15px;
+            font-size: 14px;
+            color: #000;
+        }
+    </style>
+    <template>
+        <div class="header">
+            <div class="title flex">{{header}}</div>
+            <div class="actions">
+                <template is="dom-if" if="{{settings}}"><iron-icon on-click="settingsTap" icon="settings"></iron-icon></template>
+                <template is="dom-if" if="{{closeable}}"><iron-icon on-click="closeTap" icon="highlight-off"></iron-icon></template>
+            </div>
+        </div>
+        <div class="content">
+            <content></content>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: "my-panel",
+            properties: {
+                header: String,
+                closeable: Boolean,
+                settings: Boolean
+            },
+            closeTap: function(e){
+                alert('Will be closed!!!');
+            },
+            settingsTap: function(e){
+                alert('Open settings!!!');
+            }
+        })
+    </script>
+</dom-module>
